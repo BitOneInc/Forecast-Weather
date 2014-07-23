@@ -7,7 +7,7 @@ Author: Matthew M. Emma
 Version: 1.0
 Author URI: http://www.blackreit.com
 */
-$WPForecastWunderground = new Wunderground();
+$WPForecastWunderground = new ForecastWunderground();
 
 class ForecastWunderground {
 

@@ -16,7 +16,9 @@ class ForecastWunderground {
   }
 
   public function wunderground_forecast( $atts ) { // ($city, $state, $year, $month, $day) {
-    wp_enqueue_style('weatherformat', plugins_url('css/weatherformat.css', __FILE__));
+    if (!wp_style_is('bootstrap')){
+      wp_enqueue_style('weatherformat', plugins_url('css/weatherformat.css', __FILE__));
+    }
     wp_enqueue_style('weatherfont', plugins_url('css/weather-icons.css', __FILE__));
     extract( shortcode_atts( array(
       'city' => 'New_York',
@@ -27,20 +29,36 @@ class ForecastWunderground {
     $parsed_json = json_decode($json_string);
     $forecasts = $parsed_json->{'forecast'}->{'simpleforecast'}->{'forecastday'};
 
-    echo '<div class="weatherformat">';
-    for ($i = 0; $i < $days; $i++) {
-      $forecast = $forecasts[$i];
-      echo '<div class="col-1-'.$days.'">';
-      echo $forecast->{'date'}->{'weekday'}.'<br>';
-      echo substr(strstr($forecast->{'date'}->{'pretty'}, ' on '), 4).'<br><br>';
-      echo $this->wunderground_to_forecast_icon($forecast->{'conditions'}, 72).'<br><br>';
-      echo $forecast->{'conditions'}.'<br>';
-      echo 'High: '.$forecast->{'high'}->{'fahrenheit'}.'°F / '.$forecast->{'high'}->{'celsius'}.'°C<br>';
-      echo 'Low: '.$forecast->{'low'}->{'fahrenheit'}.'°F / '.$forecast->{'low'}->{'celsius'}.'°C<br>';
+    if (wp_style_is('bootstrap')){
+      echo '<div class="row">';
+      for ($i = 0; $i < $days; $i++) {
+          $forecast = $forecasts[$i];
+          $cols = floor(12 / $days);
+          echo '<div class="col-md-'.$cols.'">';
+          echo $forecast->{'date'}->{'weekday'}.'<br>';
+          echo substr(strstr($forecast->{'date'}->{'pretty'}, ' on '), 4).'<br><br>';
+          echo $this->wunderground_to_forecast_icon($forecast->{'conditions'}, 72).'<br><br>';
+          echo $forecast->{'conditions'}.'<br>';
+          echo 'High: '.$forecast->{'high'}->{'fahrenheit'}.'°F / '.$forecast->{'high'}->{'celsius'}.'°C<br>';
+          echo 'Low: '.$forecast->{'low'}->{'fahrenheit'}.'°F / '.$forecast->{'low'}->{'celsius'}.'°C<br>';
+          echo '</div>';
+        }
+      echo '</div>';
+    } else {
+      echo '<div class="weatherformat">';
+      for ($i = 0; $i < $days; $i++) {
+          $forecast = $forecasts[$i];
+          echo '<div class="col-1-'.$days.'">';
+          echo $forecast->{'date'}->{'weekday'}.'<br>';
+          echo substr(strstr($forecast->{'date'}->{'pretty'}, ' on '), 4).'<br><br>';
+          echo $this->wunderground_to_forecast_icon($forecast->{'conditions'}, 72).'<br><br>';
+          echo $forecast->{'conditions'}.'<br>';
+          echo 'High: '.$forecast->{'high'}->{'fahrenheit'}.'°F / '.$forecast->{'high'}->{'celsius'}.'°C<br>';
+          echo 'Low: '.$forecast->{'low'}->{'fahrenheit'}.'°F / '.$forecast->{'low'}->{'celsius'}.'°C<br>';
+          echo '</div>';
+        }
       echo '</div>';
     }
-
-    echo '</div></div>';
   }
 
   private function wunderground_to_forecast_icon( $status, $size ) {

@@ -31,8 +31,7 @@ class ForecastWunderground {
 
     if (wp_style_is('bootstrap')){
       echo '<div class="row">';
-      for ($i = 0; $i < $days; $i++) {
-          $forecast = $forecasts[$i];
+      foreach ($forecasts as $forecast) {
           $cols = floor(12 / $days);
           echo '<div class="col-md-'.$cols.'">';
           echo $forecast->{'date'}->{'weekday'}.'<br>';
@@ -46,8 +45,7 @@ class ForecastWunderground {
       echo '</div>';
     } else {
       echo '<div class="weatherformat">';
-      for ($i = 0; $i < $days; $i++) {
-          $forecast = $forecasts[$i];
+        foreach ($forecasts as $forecast) {
           echo '<div class="col-1-'.$days.'">';
           echo $forecast->{'date'}->{'weekday'}.'<br>';
           echo substr(strstr($forecast->{'date'}->{'pretty'}, ' on '), 4).'<br><br>';

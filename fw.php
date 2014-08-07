@@ -12,13 +12,15 @@ $WPForecastWunderground = new ForecastWunderground();
 class ForecastWunderground {
 
   public function __construct() {
+    add_action( 'wp_enqueue_scripts', array($this, 'weatherfont_style'), 10, 0  );
     add_shortcode('fw', array($this, 'wunderground_forecast'));
   }
-
-  public function wunderground_forecast( $atts ) { // ($city, $state, $year, $month, $day) {
-    wp_deregister_style( 'weatherfont' );
-    wp_register_style( 'weatherfont', get_template_directory_uri(). '/includes/plugins/weatherforecast/css/weather-icons.css' );
+  public function weatherfont_style() {
+    wp_register_style('weatherfont', plugins_url('/css/weather-icons.css', __FILE__));
     wp_enqueue_style( 'weatherfont' );
+  }
+  public function wunderground_forecast( $atts ) {
+    add_action( 'wp_enqueue_scripts', 'weatherfont_style' );
     extract( shortcode_atts( array(
       'city' => 'New_York',
       'state' => 'NY',

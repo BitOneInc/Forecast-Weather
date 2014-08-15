@@ -1,11 +1,11 @@
 <?php 
 /*
 Plugin Name: Wunderground Forecast Data
-Plugin URI: http://blackreit.com
+Plugin URI: http://turneremanager.com
 Description: Search forecast data from Wunderground API
-Author: Matthew M. Emma
+Author: Matthew M. Emma and Robert Carmosino
 Version: 1.0
-Author URI: http://www.blackreit.com
+Author URI: http://www.turneremanager.com
 */
 $WPForecastWunderground = new ForecastWunderground();
 

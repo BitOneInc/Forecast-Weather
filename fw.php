@@ -20,7 +20,6 @@ class ForecastWunderground {
     wp_enqueue_style( 'weatherfont' );
   }
   public function wunderground_forecast( $atts ) {
-    add_action( 'wp_enqueue_scripts', 'weatherfont_style' );
     extract( shortcode_atts( array(
       'city' => 'New_York',
       'state' => 'NY',

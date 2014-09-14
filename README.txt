@@ -25,7 +25,9 @@ Please collaborate on issues and questions through Github:
 https://github.com/TurnereManager/Forecast-Weather
 
 == Screenshots ==
-1. screenshoturl.jpg
+1. https://github.com/TurnereManager/Forecast-Weather/blob/master/inline.png
+2. https://github.com/TurnereManager/Forecast-Weather/blob/master/forecast.PNG
+3. https://github.com/TurnereManager/Forecast-Weather/blob/master/thumbnail.png
 
 == Changelog ==
 - 2014-08-15 - Initial Release
